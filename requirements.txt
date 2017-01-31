@@ -1,0 +1,10 @@
+bcrypt==3.1.1
+cffi==1.8.3
+Django==1.10.2
+django-admin-dialog==1.0.8
+django-extensions==1.7.4
+django-redactoreditor==1.2.10
+pycparser==2.16
+six==1.10.0
+virtualenv==15.0.3
+wheel==0.29.0

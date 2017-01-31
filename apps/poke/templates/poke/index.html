@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Login &amp; Registration</title>
+    {% load staticfiles %}
+    <link rel="stylesheet" href="{% static 'bookreview/css/main.css' %}" charset="utf-8">
+  </head>
+  <body>
+    <div class="register">
+      <h2>Register</h2>
+      <form class="" action="register" method="post">
+        {%csrf_token%}
+        {% if messages %}
+          <ul class="messages">
+            {% for message in messages %}
+              <li>{{ message }}</li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+        <label>Name</label>
+        <p><input type="text" name="name"></p>
+        <label>Alias</label>
+        <p><input type="text" name="alias"></p>
+        <label>Email</label>
+        <p><input type="text" name="email"></p>
+        <label>Password</label>
+        <p><input type="password" name="password"></p>
+        <p>* Password should be at least 8 characters</p>
+        <label>Confirm Password</label>
+        <p><input type="password" name="conf_password"></p>
+        <label>Birthdate</label>
+        <p><input type="date" name="bday"></p>
+        <input type="submit" name="submit" value="Register">
+      </form>
+    </div>
+    <div class="login">
+      <h2>Login</h2>
+      <form class="" action="login" method="post">
+        {%csrf_token%}
+        <label>Email</label>
+        <p><input type="text" name="email"></p>
+        <label>Password</label>
+        <p><input type="password" name="password"></p>
+        <input type="submit" name="submit" value="Login">
+      </form>
+    </div>
+  </body>
+</html>

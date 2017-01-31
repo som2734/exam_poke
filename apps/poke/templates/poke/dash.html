@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Pokes Dashboard</title>
+  </head>
+  <style>
+  *{
+    box-sizing: border-box;
+    font-family: sans-serif;
+  }
+  input[type='submit']{
+    margin-top: 10px;
+    border: 1px solid teal;
+    border-radius: 10%;
+    background-color: teal;
+    padding: 6px;
+    color: white;
+    font-weight: bold;
+    min-width: 60px;
+
+  }
+  form {
+    width: 90%;
+    margin: 0 auto;
+  }
+  h2 {
+    width: 90%;
+    margin: 10px auto;
+    margin-top: 24px;
+  }
+
+  table {
+    text-align: center;
+    padding: 4px;
+    border: 4px solid lightblue;
+    color: grey;
+  }
+
+
+  #trip_row > td,
+  #trip_row > th {
+    letter-spacing: 1.5;
+    padding: 4px;
+  }
+
+  #trip_row > th {
+    text-decoration: underline;
+  }
+
+  #trip_row > a > td{
+    cursor: pointer;
+  }
+
+  .logout{
+    display: inline-block;
+    width: 90%;
+    margin: 0;
+    text-align: right;
+  }
+
+  a {
+    text-decoration: none;
+    color: orangered;
+    cursor: pointer;
+  }
+
+  #msg {
+    color: darkred;
+  }
+
+  .activity {
+    border: 1.3px solid grey;
+    border-radius: 8px;
+    width: 16%;
+    padding: 4px;
+    text-align: center;
+  }
+
+  </style>
+  <body>
+    <header>
+      <form class="logout" action="/logout" method="post">
+        {%csrf_token%}
+          <input type="hidden" name="user_id" value="{{user.id}}">
+          <input type="submit" name="submit" value="Logout">
+      </form>
+
+      <h1>Welcome {{currentUser.name}}!</h1>
+      <p>Total {{n}} people have poked you!</p>
+    </header>
+
+    <hr>
+
+
+    <div class="activity">
+      {% for p in pokes %}
+        <p>{{p.poked_by__name}} has poked you {{p.count}} times.</p>
+      {% endfor %}
+    </div>
+    <h3>People you may want to poke</h3>
+    <table cols=6>
+      <thead>
+        <tr id="trip_row">
+          <th>Name</th>
+          <th>Alias</th>
+          <th>Email Address</th>
+          <th>Poke History</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for user in current_users %}
+        <tr>
+          <td>{{user.name}}</td>
+          <td>{{user.alias}}</td>
+          <td>{{user.email}}</td>
+          <td>{{user.total_pokes}}</td>
+          <td>
+            <form class="" action="/createpoke/{{user.id}}" method="post">
+              {%csrf_token%}
+              <input type="submit" name="submit" value="Poke">
+            </form>
+
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+    </table>
+
+
+  </body>
+</html>
