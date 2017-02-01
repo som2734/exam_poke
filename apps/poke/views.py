@@ -56,7 +56,7 @@ def log_out(request):
 def dash(request):
     currentUser = Users.objects.get(id=request.session['logged_user'])
     current_users = Users.objects.exclude(id=currentUser.id)
-    pokes = Pokes.objects.filter(user=currentUser).values('poked_by__name').annotate(count=Count(F('poked_by_id')))
+    pokes = Pokes.objects.filter(user=currentUser).values('poked_by__name').annotate(count=Count(F('poked_by_id'))).order_by("-count")
     pokers = Pokes.objects.filter(user=currentUser).values('poked_by__name').annotate(n_count=Sum('poked_by_id'))
     n = pokers.count()
     context ={
